@@ -144,10 +144,10 @@ public class ManReport{
       a.show();
     }
   }
+
   ObservableList<Guest> glist = FXCollections.observableArrayList();
 
-  //@Override
-  // public void initialize(URL location, ResourceBundle resources) {
+ //Method that populates the Guest tableview with the data from the database
   public void populateGuestTableReport(){
     col_Email.setCellValueFactory(new PropertyValueFactory<>("email"));
     col_FirstName.setCellValueFactory(new PropertyValueFactory<>("name"));
