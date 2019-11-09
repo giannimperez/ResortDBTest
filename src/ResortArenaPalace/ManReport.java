@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -111,11 +112,7 @@ public class ManReport{
   @FXML
   void addGuest(ActionEvent event) {}
 
-  //Method to cancel a selected reservation from the manager report
-  @FXML
-  void cancelReservation(ActionEvent event) {
 
-  }
 
 
   private Connection conn = null;
@@ -177,9 +174,42 @@ public class ManReport{
 
     tablev_Report.setItems(glist);
   }
+
+  //Method to cancel a selected reservation from the manager report
+  @FXML
+  void cancelReservation(ActionEvent event) throws SQLException {
+    try {
+      System.out.println("Deleting Guest/Reservation Info");
+      Guest guest = tablev_Report.getSelectionModel().getSelectedItem();
+      String selectedGuest = guest.getEmail();
+      String sql = "DELETE FROM GUEST WHERE EMAIL = " + "\'" + selectedGuest + "\';";
+      PreparedStatement pstmt = conn.prepareStatement(sql);
+      pstmt.execute();
+      System.out.println("Guest/Reservation Info Deleted!");
+
+    } catch (SQLException e){
+      System.out.println("Could not delete guest");
+      e.printStackTrace();
+    }
+    tablev_Report.getItems().removeAll(tablev_Report.getSelectionModel().getSelectedItem());
+  }
+
+
+
+
+
+    public static void deleteData(int id) throws ClassNotFoundException, SQLException{
+
+    }
+
+
+  }
+
+
+
 /*
   @Override
   public void initialize(URL location, ResourceBundle resources) {
 
   }*/
-}
+
